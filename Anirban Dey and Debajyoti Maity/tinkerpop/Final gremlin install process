@@ -1,0 +1,185 @@
+""""Atfirst you go to the crome and search tinker pop  then open the website  then you go to the Downloads option and download this zip file . Then you unzip the zip file to go where the zip file be downloads"""
+
+(base) sysadm@arya14:~/Downloads
+//then rename the folder with "tinker_console"
+(base) sysadm@arya14:~/Downloads$ cd tinker_console
+//then rename the folder with "tinker"
+(base) sysadm@arya14:~/Downloads/tinker_console$ cd tinker
+//then check which file be locate in this folder
+(base) sysadm@arya14:~/Downloads/tinker_console/tinker$ ls
+bin  conf  data  ext  lib  LICENSE  licenses  NOTICE
+//Then go to the bin folder
+(base) sysadm@arya14:~/Downloads/tinker_console/tinker$ cd bin
+//then you put this command
+./gremlin.sh
+//this will show this below
+base) sysadm@arya14:~/Downloads/tinker_console/tinker/bin$ ./gremlin.sh
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.codehaus.groovy.reflection.CachedClass (file:/home/sysadm/Downloads/tinker_console/tinker/lib/groovy-2.5.22-indy.jar) to method java.lang.Object.finalize()
+WARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.reflection.CachedClass
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+
+         \,,,/
+         (o o)
+-----oOOo-(3)-oOOo-----
+plugin activated: tinkerpop.server
+plugin activated: tinkerpop.utilities
+plugin activated: tinkerpop.tinkergraph
+//so we start our project------------------
+--------------------------Atfirst------------basic query-------------------------then go to the ---------- graphml file----------------
+
+graph = TinkerFactory.createModern()   //creates an instance of the TinkerGraph class from the TinkerPop3 library, specifically the "modern" graph example.
+==>tinkergraph[vertices:6 edges:6]    // indicates that the instantiated TinkerGraph contains 6 vertices and 6 edges.
+
+g.V() ////Get all the vertices in the Graph.
+==>v[1]
+==>v[2]
+==>v[3]
+==>v[4]
+==>v[5]
+==>v[6]
+
+g.V(1) //// Get the vertex with the unique identifier of "1".
+==>v[1]
+
+g.V(1).values('name') //   Get the value of the name property on the vertex with the unique identifier of "1".
+==>marko
+
+g.V(1).outE('knows')  //  Get the edges with the label "knows" for the vertex with the unique identifier of "1".
+==>e[7][1-knows->2]
+==>e[8][1-knows->4]
+
+g.V(1).outE('knows').inV().values('name') ////  Get the names of the people whom the vertex with the unique identifier of "1" "knows".
+==>vadas
+==>josh
+g.V(1).out('knows').values('name') ////   Note that when one uses outE().inV() as shown in the previous command, this can be shortened to just out() (similar to inE().outV() and in() for incoming edges).
+
+==>vadas
+==>josh
+g.V(1).out('knows').has('age', gt(30)).values('name') ////   Get the names of the people vertex "1" knows who are over the age of 30.
+==>josh 
+
+--------create a empty graph database-------------add vertices and add edges-----------------------
+
+graph = TinkerGraph.open()      ///this method initializes an empty in-memory graph database that allows you to add vertices and edges to build a graph.
+==>tinkergraph[vertices:0 edges:0]
+
+ g = traversal().withEmbedded(graph)
+==>graphtraversalsource[tinkergraph[vertices:0 edges:0], standard]
+v1 = g.addV("person").property(id, 1).property("name", "marko").property("age", 29).next()
+==>v[1]
+v2 = g.addV("software").property(id, 3).property("name", "lop").property("lang", "java").next()
+==>v[3]
+g.addE("created").from(v1).to(v2).property(id, 9).property("weight", 0.4)
+==>e[9][1-created->3]
+g.V().has('name','marko')
+==>v[1]
+g.V().has('person','name','marko')
+==>v[1]
+g.V().has('person','name','marko').outE('created')
+==>e[9][1-created->3]
+g.V().has('person','name','marko').out('created')
+==>v[3]
+g.V().has('person','name','marko').out('created').values('name')
+==>lop
+
+
+-----------------------------------------Start------------------------------------------------Anirban Dey----------Debajyoti Maity---------Airport dta query-------------------------
+Take a csv file in airport_2019.csv ---given by Champak sir----------------------------------then follow the ipynb which attach with this file then convert csv to graphml format--------------
+
+conf = new BaseConfiguration()
+conf.setProperty("gremlin.tinkergraph.vertexIdManager","LONG")
+conf.setProperty("gremlin.tinkergraph.edgeIdManager","LONG")
+conf.setProperty("gremlin.tinkergraph.vertexPropertyIdManager","LONG")
+graph = TinkerGraph.open(conf)
+graph.io(graphml()).readGraph('/home/sysadm/Downloads/Jan_2019_ontime_fivecol_final2.graphml')   
+
+
+
+:set max-iteration 1000 
+g=graph.traversal()
+g.E().count()
+g.V()
+vm = g.V().valueMap(true).toList()
+
+g.V().as('FSM').out().as('DFW').out().as('DAY').where('FSM', neq('DAY')).select('FSM', 'DFW', 'DAY').by(valueMap(true))
+
+
+  
+g.V().valueMap('ORIGIN_AIRPORT_ID', 'ORIGIN', 'DEST_AIRPORT_ID', 'DEST', 'DISTANCE').toList()    //query retrieves all vertices and their attribute values specified in the valueMap() step.  
+  
+ g.V().out().values('ORIGIN', 'DEST').dedup().toList()    //In this command, g.V().out() traverses from each vertex to its outgoing edges, and then to the connected vertices. The values('ORIGIN', 'DEST') step retrieves the values of the 'ORIGIN' and 'DEST' attributes for the connected airports. The dedup() step removes any duplicate values. Finally, toList() collects the results into a list.
+  
+  
+  
+g.V().groupCount().by('ORIGIN_AIRPORT_ID') //// How many of each type of vertex are there?
+  
+ g.V().has('ORIGIN', 'FSM').as('origin').V().has('DEST', 'DFW').addE('CONNECTED_TO').from('origin')  ####This code essentially creates a connection between two airports in a graph by adding an edge between them. The vertices representing the airports are filtered based on their origin and destination codes.
+
+ a=g.V().has('ORIGIN','IAD') 
+ 
+ 
+ a=g.V().has('DISTANCE').groupCount().by('ORIGIN')
+ 
+ 
+ a=g.V().has('ORIGIN').groupCount().by('DISTANCE')
+ 
+g.V().has('ORIGIN','TLH').out().out().out().has('ORIGIN','EWR').path().by('ORIGIN')
+ 
+
+
+g.V().as('a').out()
+ 
+ 
+ g.V().match(__.as('a').out().as('b'), __.as('b').out().as('c')).select('a', 'b', 'c').by('ORIGIN').toList()
+ 
+# a->b ,b->c ,a-/>c
+
+g.V().as('a').outE().as('ab').inV().as('b').outE().as('bc').inV().as('c').where('a', P.neq('c')).where('c', P.neq('b')).where('a', P.neq('b')).select('a', 'b', 'c').count()
+==>337246
+
+g.V().as('a').out().as('b').out().as('c').where('a', P.neq('b')).where('a', P.neq('c')).where('b', P.neq('c')).where(__.as('a').out().not(__.in('c'))).select('a', 'b', 'c').count() 
+ ==>337246
+ 
+ g.V().as('a').outE().as('ab').inV().as('b').outE().as('bc').inV().as('c').not(__.as('a').out().hasLabel('c')).where('c', neq('a')).select('a', 'b', 'c').by('id').count()
+ 
+ g.V().as('a').out().as('b').out().as('c').where(__.as('a').out().not(__.in('c').has('DEST', __.select('c').by('ORIGIN')))).where('a', neq('c')).select('a', 'b', 'c')
+==>337246
+ g.V().as('a').out().as('b').out().as('c').where(__.as('a').out().not(__.in('c').has('DEST', __.select('c').by('ORIGIN')))).select('a', 'b', 'c')
+==>342760
+//a->b;b->c;a->c 
+g.V().match(__.as('a').out().as('b'), __.as('b').out().as('c'), __.as('a').out().has('DEST', __.select('c').by('ORIGIN')).as('d')).select('a', 'b', 'c').by('ORIGIN').toList()
+
+
+
+//To query the graph for the airports that have a direct edge to a given airport, you can use the out() step with the DEST property. For example:
+
+
+g.V().has('ORIGIN','ATL').out().values('DEST')
+
+
+//To query the graph for the airports that have an indirect edge to a given airport, you can use the out().out() step with the DEST property. For example:
+g.V().has('ORIGIN','ATL').out().out().values('DEST')
+
+ //This code essentially creates a connection between two airports in a graph by adding an edge between them. The vertices representing the airports are filtered based on their origin and destination codes.
+
+g.V().has('ORIGIN', 'FSM').as('origin').V().has('DEST', 'DFW').addE('CONNECTED_TO').from('origin')
+
+
+g.V().groupCount().by('ORIGIN_AIRPORT_ID') //// How many of each type of vertex are there?
+
+
+
+ //In this command, g.V().out() traverses from each vertex to its outgoing edges, and then to the connected vertices. The values('ORIGIN', 'DEST') step retrieves the values of the 'ORIGIN' and 'DEST' attributes for the connected airports. The dedup() step removes any duplicate values. Finally, toList() collects the results into a list.
+ 
+ 
+g.V().out().values('ORIGIN', 'DEST').dedup().toList()
+
+
+
+//the query is looking for paths in the graph that represent a route from an airport labeled 'FSM' to an airport labeled 'DAY' via an intermediate airport labeled 'DFW'. It ensures that the 'FSM' and 'DAY' airports are different and retrieves the properties of these airports in the form of value maps.
+
+g.V().as('FSM').out().as('DFW').out().as('DAY').where('FSM', neq('DAY')).select('FSM', 'DFW', 'DAY').by(valueMap(true))
+-----------------------------End -------------------------------------Thank You -------------------------------------------------------
+

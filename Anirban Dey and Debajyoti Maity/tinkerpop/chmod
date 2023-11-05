@@ -1,0 +1,5 @@
+chmod +x gremlin.sh
+chmod +r groovy-2.5.22-indy.jar
+./gremlin.sh
+ :remote connect tinkerpop.server conf/remote.yaml
+chmod +x gremlin-server.sh

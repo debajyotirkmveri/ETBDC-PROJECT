@@ -1,0 +1,74 @@
+(base) sysadm@arya13:~$ cd orientdb
+(base) sysadm@arya13:~/orientdb$ cd bin
+(base) sysadm@arya13:~/orientdb/bin$ ls
+backup.sh    dserver.sh   orientdb.service  server.bat	  stresstester.bat
+console.bat  gremlin.bat  orientdb.sh	    server.sh	  stresstester.sh
+console.sh   oetl.bat	  orientdb.upstart  shutdown.bat
+dserver.bat  oetl.sh	  orient.pid	    shutdown.sh
+(base) sysadm@arya13:~/orientdb/bin$ ./server.sh 
+           .                                          
+          .`        `                                 
+          ,      `:.                                  
+         `,`    ,:`                                   
+         .,.   :,,                                    
+         .,,  ,,,                                     
+    .    .,.:::::  ````                                 :::::::::     :::::::::   
+    ,`   .::,,,,::.,,,,,,`;;                      .:    ::::::::::    :::    :::  
+    `,.  ::,,,,,,,:.,,.`  `                       .:    :::      :::  :::     ::: 
+     ,,:,:,,,,,,,,::.   `        `         ``     .:    :::      :::  :::     ::: 
+      ,,:.,,,,,,,,,: `::, ,,   ::,::`   : :,::`  ::::   :::      :::  :::    :::  
+       ,:,,,,,,,,,,::,:   ,,  :.    :   ::    :   .:    :::      :::  :::::::     
+        :,,,,,,,,,,:,::   ,,  :      :  :     :   .:    :::      :::  :::::::::   
+  `     :,,,,,,,,,,:,::,  ,, .::::::::  :     :   .:    :::      :::  :::     ::: 
+  `,...,,:,,,,,,,,,: .:,. ,, ,,         :     :   .:    :::      :::  :::     ::: 
+    .,,,,::,,,,,,,:  `: , ,,  :     `   :     :   .:    :::      :::  :::     ::: 
+      ...,::,,,,::.. `:  .,,  :,    :   :     :   .:    :::::::::::   :::     ::: 
+           ,::::,,,. `:   ,,   :::::    :     :   .:    :::::::::     ::::::::::  
+           ,,:` `,,.                                  
+          ,,,    .,`                                  
+         ,,.     `,                                   
+       ``        `.                                                          
+                 ``                                       www.orientdb.com
+                 `                                    
+removing old pid file /home/sysadm/orientdb/bin/orient.pid
+
+2023-06-27 17:58:49:281 INFO  Detected limit of amount of simultaneously open files is 1048576,  limit of open files for disk cache will be set to 523776 [ONative]
+2023-06-27 17:58:49:288 INFO  Loading configuration from: /home/sysadm/orientdb/config/orientdb-server-config.xml... [OServerConfigurationLoaderXml]
+2023-06-27 17:58:49:384 INFO  OrientDB Server v3.2.21-SNAPSHOT (build ${buildNumber}, branch develop) is starting up... [OServer]
+2023-06-27 17:58:49:522 INFO  16682921984 B/15910 MB/15 GB of physical memory were detected on machine [ONative]
+2023-06-27 17:58:49:522 INFO  Soft memory limit for this process is set to -1 B/-1 MB/-1 GB [ONative]
+2023-06-27 17:58:49:522 INFO  Hard memory limit for this process is set to -1 B/-1 MB/-1 GB [ONative]
+2023-06-27 17:58:49:523 INFO  Path to 'memory' cgroup is '/user.slice/user-1000.slice/user@1000.service' [ONative]
+2023-06-27 17:58:49:524 INFO  Mounting path for memory cgroup controller is '/sys/fs/cgroup/memory' [ONative]
+2023-06-27 17:58:49:525 INFO  cgroup soft memory limit is 9223372036854771712 B/8796093022207 MB/8589934591 GB [ONative]
+2023-06-27 17:58:49:525 INFO  cgroup hard memory limit is 9223372036854771712 B/8796093022207 MB/8589934591 GB [ONative]
+2023-06-27 17:58:49:525 INFO  Detected memory limit for current process is 16682921984 B/15910 MB/15 GB [ONative]
+2023-06-27 17:58:49:526 INFO  JVM can use maximum 3925MB of heap memory [OMemoryAndLocalPaginatedEnginesInitializer]
+2023-06-27 17:58:49:526 INFO  Because OrientDB is running outside a container 2g of memory will be left unallocated according to the setting 'memory.leftToOS' not taking into account heap memory [OMemoryAndLocalPaginatedEnginesInitializer]
+2023-06-27 17:58:49:527 INFO  OrientDB auto-config DISKCACHE=9,936MB (heap=3,925MB os=15,910MB) [orientechnologies]
+2023-06-27 17:58:49:529 INFO  System is started under an effective user : `sysadm` [OEngineLocalPaginated]
+2023-06-27 17:58:49:567 INFO  WAL maximum segment size is set to 6,144 MB [OrientDBDistributed]
+2023-06-27 17:58:49:665 INFO  Databases directory: /home/sysadm/orientdb/databases [OServer]
+2023-06-27 17:58:49:694 INFO  Page size for WAL located in /home/sysadm/orientdb/databases/OSystem is set to 4096 bytes. [CASDiskWriteAheadLog]
+2023-06-27 17:58:49:776 INFO  DWL:OSystem: block size = 4096 bytes, maximum segment size = 2063 MB [DoubleWriteLogGL]
+2023-06-27 17:58:49:922 INFO  Storage 'plocal:/home/sysadm/orientdb/databases/OSystem' is opened under OrientDB distribution : 3.2.21-SNAPSHOT (build ${buildNumber}, branch develop) [OLocalPaginatedStorage]
+2023-06-27 17:58:50:051 INFO  Listening binary connections on 0.0.0.0:2424 (protocol v.38, socket=default) [OServerNetworkListener]
+2023-06-27 17:58:50:053 INFO  Listening http connections on 0.0.0.0:2480 (protocol v.10, socket=default) [OServerNetworkListener]
+2023-06-27 17:58:50:073 INFO  Found ORIENTDB_ROOT_PASSWORD variable, using this value as root's password [OServer]
+2023-06-27 17:58:50:075 INFO  Installing dynamic plugin 'orientdb-etl-3.2.21-SNAPSHOT.jar'... [OServerPluginManager]
+2023-06-27 17:58:50:077 INFO  Installing dynamic plugin 'orientdb-studio-3.2.21-20230615.142755-1.zip'... [OServerPluginManager]
+2023-06-27 17:58:50:081 INFO  Installed GREMLIN language v.2.6.0 - graph.pool.max=50 [OGraphServerHandler]
+2023-06-27 17:58:50:081 INFO  [OVariableParser.resolveVariables] Property not found: distributed [orientechnologies]
+2023-06-27 17:58:50:085 WARNI Authenticated clients can execute any kind of code into the server by using the following allowed languages: [sql] [OServerSideScriptInterpreter]
+2023-06-27 17:58:50:086 INFO  OrientDB Studio available at http://172.20.250.9:2480/studio/index.html [OServer]
+2023-06-27 17:58:50:086 INFO  OrientDB Server is active v3.2.21-SNAPSHOT (build ${buildNumber}, branch develop). [OServer]
+2023-06-27 17:59:31:168 INFO  Page size for WAL located in /home/sysadm/orientdb/databases/air-route is set to 4096 bytes. [CASDiskWriteAheadLog]
+2023-06-27 17:59:31:274 INFO  DWL:air-route: block size = 4096 bytes, maximum segment size = 2063 MB [DoubleWriteLogGL]
+2023-06-27 17:59:31:324 INFO  Storage 'plocal:/home/sysadm/orientdb/databases/air-route' is opened under OrientDB distribution : 3.2.21-SNAPSHOT (build ${buildNumber}, branch develop) [OLocalPaginatedStorage]
+2023-06-27 18:00:13:656 INFO  {db=air-route} Starting database import [OConnectionBinaryExecutor]
+2023-06-27 18:00:18:224 INFO  {db=air-route} - Rebuilding index air-route.ORole.name (estimated 3 items)... [OIndexRebuildOutputListener]
+2023-06-27 18:00:18:227 INFO  {db=air-route} --> OK, indexed 3 items in 3 ms [OIndexRebuildOutputListener]
+2023-06-27 18:00:18:611 INFO  {db=air-route} - Rebuilding index air-route.OUser.name (estimated 1 items)... [OIndexRebuildOutputListener]
+2023-06-27 18:00:18:613 INFO  {db=air-route} --> OK, indexed 1 items in 2 ms [OIndexRebuildOutputListener]
+
+

@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"><key id="d4" for="node" attr.name="DISTANCE" attr.type="double"/>
+<key id="d3" for="node" attr.name="DEST" attr.type="string"/>
+<key id="d2" for="node" attr.name="ORIGIN" attr.type="string"/>
+<key id="d1" for="node" attr.name="DEST_AIRPORT_ID" attr.type="long"/>
+<key id="d0" for="node" attr.name="ORIGIN_AIRPORT_ID" attr.type="long"/>
+<graph edgedefault="directed"><node id="11953">
+  <data key="d0">11953</data>
+  <data key="d1">10397</data>
+  <data key="d2">GNV</data>
+  <data key="d3">ATL</data>
+  <data key="d4">300.0</data>
+</node>
+<node id="10397">
+  <data key="d0">10397</data>
+  <data key="d1">10685</data>
+  <data key="d2">ATL</data>
+  <data key="d3">BMI</data>
+  <data key="d4">533.0</data>
+</node>
+<node id="13487">
+  <data key="d0">11267</data>
+  <data key="d1">13487</data>
+  <data key="d2">DAY</data>
+  <data key="d3">MSP</data>
+  <data key="d4">574.0</data>
+</node>
+<node id="11193">
+  <data key="d0">12953</data>
+  <data key="d1">11193</data>
+  <data key="d2">LGA</data>
+  <data key="d3">CVG</data>
+  <data key="d4">585.0</data>
+</node>
+<node id="11433">
+  <data key="d0">11433</data>
+  <data key="d1">11193</data>
+  <data key="d2">DTW</data>
+  <data key="d3">CVG</data>
+  <data key="d4">229.0</data>
+</node>
+<node id="15249">
+  <data key="d0">15249</data>
+  <data key="d1">10397</data>
+  <data key="d2">TLH</data>
+  <data key="d3">ATL</data>
+  <data key="d4">223.0</data>
+</node>
+<node id="11778">
+  <data key="d0">10397</data>
+  <data key="d1">11778</data>
+  <data key="d2">ATL</data>
+  <data key="d3">FSM</data>
+  <data key="d4">579.0</data>
+</node>
+<node id="11267">
+  <data key="d0">11267</data>
+  <data key="d1">13487</data>
+  <data key="d2">DAY</data>
+  <data key="d3">MSP</data>
+  <data key="d4">574.0</data>
+</node>
+<node id="12448">
+  <data key="d0">12448</data>
+  <data key="d1">10397</data>
+  <data key="d2">JAN</data>
+  <data key="d3">ATL</data>
+  <data key="d4">341.0</data>
+</node>
+<node id="12953">
+  <data key="d0">12451</data>
+  <data key="d1">12953</data>
+  <data key="d2">JAX</data>
+  <data key="d3">LGA</data>
+  <data key="d4">833.0</data>
+</node>
+<node id="12451">
+  <data key="d0">12451</data>
+  <data key="d1">12953</data>
+  <data key="d2">JAX</data>
+  <data key="d3">LGA</data>
+  <data key="d4">833.0</data>
+</node>
+<node id="10685">
+  <data key="d0">10397</data>
+  <data key="d1">10685</data>
+  <data key="d2">ATL</data>
+  <data key="d3">BMI</data>
+  <data key="d4">533.0</data>
+</node>
+<edge source="11953" target="10397"/>
+<edge source="10397" target="11778"/>
+<edge source="10397" target="10685"/>
+<edge source="13487" target="11193"/>
+<edge source="11433" target="11193"/>
+<edge source="15249" target="10397"/>
+<edge source="11267" target="13487"/>
+<edge source="12448" target="10397"/>
+<edge source="12953" target="11193"/>
+<edge source="12451" target="12953"/>
+</graph></graphml>

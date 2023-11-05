@@ -1,0 +1,33 @@
+gremlin> g = TinkerGraph.open().traversal()    // Create an in-memory TinkerGraph and assign the graph traversal to the variable 'g'
+gremlin> g.addV('person').property('name', 'John Doe').property('age', 25).property('email', 'johndoe@example.com')
+gremlin> g.addV('person').property('name', 'Jane Smith').property('age', 30).property('email', 'janesmith@example.com')
+gremlin> g.addV('person').property('name', 'Mark Johnson').property('age', 35).property('email', 'markjohnson@example.com')
+------------------------------------------------------------------------------------------------
+gremlin> g = TinkerGraph.open().traversal() 
+==>graphtraversalsource[tinkergraph[vertices:0 edges:0], standard]
+gremlin> g.addV('person').property('name', 'John Doe').property('age', 25).property('email', 'johndoe@example.com')
+==>v[0]
+gremlin> g.addV('person').property('name', 'Jane Smith').property('age', 30).property('email', 'janesmith@example.com')
+==>v[4]
+gremlin> g.addV('person').property('name', 'Mark Johnson').property('age', 35).property('email', 'markjohnson@example.com')
+==>v[8]
+gremlin> g.addV('person').property('name', 'John Doe').property('age', 25).property('email', 'johndoe@example.com')
+==>v[12]
+gremlin> g.V().has('age', 25)
+==>v[0]
+==>v[12]
+gremlin> g.V().has('name', 'John Doe').valueMap()
+==>[name:[John Doe],age:[25],email:[johndoe@example.com]]
+==>[name:[John Doe],age:[25],email:[johndoe@example.com]]
+gremlin> 
+gremlin> g.V().has('name', 'John Doe').valueMap()
+==>[name:[John Doe],age:[25],email:[johndoe@example.com]]
+==>[name:[John Doe],age:[25],email:[johndoe@example.com]]
+gremlin> g.V().has('name', 'John Doe').property('age', 30)
+==>v[0]
+==>v[12]
+gremlin> g..addE('knows').from('person1').to('person2')
+/home/sysadm/Downloads/wiki-Vote.txt
+---------------------------------------------------------------------------------------------------------------------------------------
+g.io('/home/sysadm/Downloads/wiki-Vote.txt').read().iterate()
+

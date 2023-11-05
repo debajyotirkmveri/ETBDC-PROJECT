@@ -1,0 +1,47 @@
+(base) sysadm@arya14:~/Downloads/apache-tinkerpop-gremlin-console-3.6.4-bin/apache-tinkerpop-gremlin-console-3.6.4/bin$ pip install -r requirements.txtcd ~
+ERROR: Directory '/home/sysadm' is not installable. Neither 'setup.py' nor 'pyproject.toml' found.
+(base) sysadm@arya14:~/Downloads/apache-tinkerpop-gremlin-console-3.6.4-bin/apache-tinkerpop-gremlin-console-3.6.4/bin$ cd ~
+(base) sysadm@arya14:~$ cd Downloads
+(base) sysadm@arya14:~/Downloads$ cd apache-tinkerpop-gremlin-console-3.6.4-bin/
+(base) sysadm@arya14:~/Downloads/apache-tinkerpop-gremlin-console-3.6.4-bin$ cd apache-tinkerpop-gremlin-console-3.6.4/
+(base) sysadm@arya14:~/Downloads/apache-tinkerpop-gremlin-console-3.6.4-bin/apache-tinkerpop-gremlin-console-3.6.4$ cd bin
+(base) sysadm@arya14:~/Downloads/apache-tinkerpop-gremlin-console-3.6.4-bin/apache-tinkerpop-gremlin-console-3.6.4/bin$ ls
+gremlin.bat  gremlin.sh  hadoop
+(base) sysadm@arya14:~/Downloads/apache-tinkerpop-gremlin-console-3.6.4-bin/apache-tinkerpop-gremlin-console-3.6.4/bin$ ./gremlin.sh
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.codehaus.groovy.reflection.CachedClass (file:/home/sysadm/Downloads/apache-tinkerpop-gremlin-console-3.6.4-bin/apache-tinkerpop-gremlin-console-3.6.4/lib/groovy-2.5.22-indy.jar) to method java.lang.Object.finalize()
+WARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.reflection.CachedClass
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+
+         \,,,/
+         (o o)
+-----oOOo-(3)-oOOo-----
+plugin activated: tinkerpop.server
+plugin activated: tinkerpop.utilities
+plugin activated: tinkerpop.tinkergraph
+gremlin> graph = TinkerGraph.open()
+==>tinkergraph[vertices:0 edges:0]
+gremlin> graph.createIndex('userId', Vertex.class)
+==>null
+gremlin> g = traversal().withEmbedded(graph)
+==>graphtraversalsource[tinkergraph[vertices:0 edges:0], standard]
+gremlin> getOrCreate = { id ->
+......1>   g.V().has('user','userId', id).
+......2>     fold().
+......3>     coalesce(unfold(),
+......4>              addV('user').property('userId', id)).next()}
+==>groovysh_evaluate$_run_closure1@3281dfc2
+gremlin> new File('/home/sysadm/Downloads/wiki-Vote.txt').eachLine {
+......1> if (!it.startsWith("#")){
+......2>      (fromVertex, toVertex) = it.split('\t').collect(getOrCreate)
+......3>      g.addE('votesFor').from(fromVertex).to(toVertex).iterate()
+......4>  }
+......5> }
+gremlin> v1 = g.addV('person').property('name','marko').next()
+==>v[117919]
+gremlin> v2 = g.addV('person').property('name','stephen').next()
+==>v[117921]
+gremlin> g.V(v1).addE('knows').to(v2).property('weight',0.75).iterate()
+gremlin> 
+

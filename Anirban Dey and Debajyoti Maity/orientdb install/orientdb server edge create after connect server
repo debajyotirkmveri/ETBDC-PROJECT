@@ -1,0 +1,10 @@
+gremlin g.v()
+gremlin v1=g.addVertex();
+gremlin v2=g.addVertex();
+gremlin e=g.addEdge(v1,v2,'friend');
+gremlin v1.outE;
+gremlin v2=g.addVertex();
+gremlin e1=g.addEdge(v1,v3,'son');
+gremlin e1=g.addEdge(v1,v3,'son');
+gremlin v4 =g.addVertex();
+gremlin e3 = g.addEdge(v1,v4,'brother')

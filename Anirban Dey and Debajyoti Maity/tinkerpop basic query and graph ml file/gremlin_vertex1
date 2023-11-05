@@ -1,0 +1,133 @@
+"""first downloads tinker pop gremlin then extract"""
+base) sysadm@arya14:~$ cd Downloads
+(base) sysadm@arya14:~/Downloads$ cd apache-tinkerpop-gremlin-console-3.6.4-bin
+(base) sysadm@arya14:~/Downloads/apache-tinkerpop-gremlin-console-3.6.4-bin$ ls
+apache-tinkerpop-gremlin-console-3.6.4
+(base) sysadm@arya14:~/Downloads/apache-tinkerpop-gremlin-console-3.6.4-bin$ cd apache-tinkerpop-gremlin-console-3.6.4-bin
+bash: cd: apache-tinkerpop-gremlin-console-3.6.4-bin: No such file or directory
+(base) sysadm@arya14:~/Downloads/apache-tinkerpop-gremlin-console-3.6.4-bin$ ls
+apache-tinkerpop-gremlin-console-3.6.4
+(base) sysadm@arya14:~/Downloads/apache-tinkerpop-gremlin-console-3.6.4-bin$ cd apache-tinkerpop-gremlin-console-3.6.4-bin
+bash: cd: apache-tinkerpop-gremlin-console-3.6.4-bin: No such file or directory
+(base) sysadm@arya14:~/Downloads/apache-tinkerpop-gremlin-console-3.6.4-bin$ cd bin
+bash: cd: bin: No such file or directory
+(base) sysadm@arya14:~/Downloads/apache-tinkerpop-gremlin-console-3.6.4-bin$ cd apache-tinkerpop-gremlin-console-3.6.4-bin/bin
+bash: cd: apache-tinkerpop-gremlin-console-3.6.4-bin/bin: No such file or directory
+(base) sysadm@arya14:~/Downloads/apache-tinkerpop-gremlin-console-3.6.4-bin$ cd /apache-tinkerpop-gremlin-console-3.6.4
+bash: cd: /apache-tinkerpop-gremlin-console-3.6.4: No such file or directory
+(base) sysadm@arya14:~/Downloads/apache-tinkerpop-gremlin-console-3.6.4-bin$ cd apache-tinkerpop-gremlin-console-3.6.4
+(base) sysadm@arya14:~/Downloads/apache-tinkerpop-gremlin-console-3.6.4-bin/apache-tinkerpop-gremlin-console-3.6.4$ cd bin
+(base) sysadm@arya14:~/Downloads/apache-tinkerpop-gremlin-console-3.6.4-bin/apache-tinkerpop-gremlin-console-3.6.4/bin$ ./gremlin.sh
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.codehaus.groovy.reflection.CachedClass (file:/home/sysadm/Downloads/apache-tinkerpop-gremlin-console-3.6.4-bin/apache-tinkerpop-gremlin-console-3.6.4/lib/groovy-2.5.22-indy.jar) to method java.lang.Object.finalize()
+WARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.reflection.CachedClass
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+
+         \,,,/
+         (o o)
+-----oOOo-(3)-oOOo-----
+plugin activated: tinkerpop.server
+plugin activated: tinkerpop.utilities
+plugin activated: tinkerpop.tinkergraph
+gremlin> graph = TinkerFactory.createModern()
+==>tinkergraph[vertices:6 edges:6]
+gremlin> g = traversal().withEmbedded(graph)
+==>graphtraversalsource[tinkergraph[vertices:6 edges:6], standard]
+gremlin>  g.V() ////
+==>v[1]
+==>v[2]
+==>v[3]
+==>v[4]
+==>v[5]
+==>v[6]
+gremlin> g.V(1) ////
+==>v[1]
+gremlin> g.V(1).values('name') ////
+==>marko
+gremlin> g.V(1).outE('knows') ////
+==>e[7][1-knows->2]
+==>e[8][1-knows->4]
+gremlin> g.V(1).outE('knows').inV().values('name') ////
+==>vadas
+==>josh
+gremlin> g.V(1).out('knows').values('name') ////
+==>vadas
+==>josh
+gremlin> g.V(1).out('knows').has('age', gt(30)).values('name') ////
+==>josh
+gremlin> graph = TinkerGraph.open()
+==>tinkergraph[vertices:0 edges:0]
+gremlin> g = traversal().withEmbedded(graph)
+==>graphtraversalsource[tinkergraph[vertices:0 edges:0], standard]
+gremlin> v1 = g.addV("person").property(id, 1).property("name", "marko").property("age", 29).next()\
+......1> v2 = g.addV("software").property(id, 3).property("name", "lop").property("lang", "java").next()
+groovysh_parse: 3: expecting EOF, found 'v2' @ line 3, column 1.
+   v2 = g.addV("software").property(id, 3).property("name", "lop").property("lang", "java").next()
+   ^
+
+1 error
+Type ':help' or ':h' for help.
+Display stack trace? [yN]yynN
+gremlin> v1 = g.addV("person").property(id, 1).property("name", "marko").property("age", 29).next()
+==>v[1]
+gremlin> v2 = g.addV("software").property(id, 3).property("name", "lop").property("lang", "java").next()
+==>v[3]
+gremlin> g.addE("created").from(v1).to(v2).property(id, 9).property("weight", 0.4)
+==>e[9][1-created->3]
+gremlin>  graph = TinkerGraph.open()
+==>tinkergraph[vertices:0 edges:0]
+gremlin> g = traversal().withEmbedded(graph)
+==>graphtraversalsource[tinkergraph[vertices:0 edges:0], standard]
+gremlin> v1 = g.addV("person").property(T.id, 1).property("name", "marko").property("age", 29).next()
+==>v[1]
+gremlin> v2 = g.addV("software").property(T.id, 3).property("name", "lop").property("lang", "java").next()
+==>v[3]
+gremlin> g.addE("created").from(v1).to(v2).property(T.id, 9).property("weight", 0.4)
+==>e[9][1-created->3]
+gremlin> g.V().has('name','marko')
+==>v[1]
+gremlin>  g.V().has('person','name','marko')
+==>v[1]
+gremlin> g.V().has('person','name','marko').outE('created')
+==>e[9][1-created->3]
+gremlin> g.V().has('person','name','marko').outE('created').inV()
+==>v[3]
+gremlin> g.V().has('person','name','marko').out('created')
+==>v[3]
+gremlin>  g.V().has('person','name','marko').out('created').values('name')
+==>lop
+gremlin> graph = TinkerFactory.createModern()
+==>tinkergraph[vertices:6 edges:6]
+gremlin>  g = traversal().withEmbedded(graph)
+==>graphtraversalsource[tinkergraph[vertices:6 edges:6], standard]
+gremlin> g.V().has('person','name',within('vadas','marko')).values('age')
+==>29
+==>27
+gremlin> g.V().has('person','name',within('vadas','marko')).values('age').mean()
+==>28.0
+gremlin> g.V().has('person','name','marko').out('created')
+==>v[3]
+gremlin> g.V().has('person','name','marko').
+......1>            out('created').in('created').
+......2>            values('name')
+==>marko
+==>josh
+==>peter
+gremlin> g.V().has('person','name','marko').as('exclude').
+......1>            out('created').in('created').
+......2>            where(neq('exclude')).
+......3>            values('name')
+==>josh
+==>peter
+gremlin>  g.V().as('a').out().as('b').out().as('c').
+......1>            select('a','b','c')
+==>[a:v[1],b:v[4],c:v[5]]
+==>[a:v[1],b:v[4],c:v[3]]
+gremlin> g.V().group().by(label)
+==>[software:[v[3],v[5]],person:[v[1],v[2],v[4],v[6]]]
+gremlin>  g.V().group().by(label).by('name')
+==>[software:[lop,ripple],person:[marko,vadas,josh,peter]]
+gremlin> 
+
+

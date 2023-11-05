@@ -1,0 +1,80 @@
+(base) sysadm@arya14:~/Downloads
+(base) sysadm@arya14:~/Downloads/apache-tinkerpop-gremlin-console-3.6.4-bin
+(base) sysadm@arya14:~/Downloads/apache-tinkerpop-gremlin-console-3.6.4-bin/apache-tinkerpop-gremlin-console-3.6.4
+(base) sysadm@arya14:~/Downloads/apache-tinkerpop-gremlin-console-3.6.4-bin/apache-tinkerpop-gremlin-console-3.6.4/bin
+(base) sysadm@arya14:~/Downloads/apache-tinkerpop-gremlin-console-3.6.4-bin/apache-tinkerpop-gremlin-console-3.6.4/bin$ ./gremlin.sh
+gremlin> 
+gremlin> graph = TinkerFactory.createModern()
+#==>tinkergraph[vertices:6 edges:6]
+gremlin> g = traversal().withEmbedded(graph)
+#==>graphtraversalsource[tinkergraph[vertices:6 edges:6], standard]
+gremlin>  g.V() ////   ##Get all the vertices in the Graph.
+"""==>v[1]
+==>v[2]
+==>v[3]
+==>v[4]
+==>v[5]
+==>v[6]"""
+g.V(1) ////  ##Get the vertex with the unique identifier of "1".
+#==>v[1]
+gremlin> g.V(1).values('name') ////  ##Get the value of the name property on the vertex with the unique identifier of "1".
+#==>marko
+gremlin> g.V(1).outE('knows') ////   ##Get the edges with the label "knows" for the vertex with the unique identifier of "1".
+#==>e[7][1-knows->2]
+#==>e[8][1-knows->4]
+g.V(1).outE('knows').inV().values('name') ////  ##Get the names of the people whom the vertex with the unique identifier of "1" "knows".
+#==>vadas
+#==>josh
+g.V(1).out('knows').values('name') ////   ###Note that when one uses outE().inV() as shown in the previous command, this can be shortened to just out() (similar to inE().outV() and in() for incoming edges).
+
+#==>vadas
+#==>josh
+g.V(1).out('knows').has('age', gt(30)).values('name') ////  ### Get the names of the people vertex "1" knows who are over the age of 30.
+#==>josh 
+graph = TinkerGraph.open()
+==>tinkergraph[vertices:0 edges:0]
+gremlin> g = traversal().withEmbedded(graph)
+==>graphtraversalsource[tinkergraph[vertices:0 edges:0], standard]
+gremlin> v1 = g.addV("person").property(id, 1).property("name", "marko").property("age", 29).next()
+==>v[1]
+gremlin> v2 = g.addV("software").property(id, 3).property("name", "lop").property("lang", "java").next()
+==>v[3]
+gremlin> g.addE("created").from(v1).to(v2).property(id, 9).property("weight", 0.4)
+==>e[9][1-created->3]
+gremlin> g.V().has('name','marko')
+==>v[1]
+gremlin> g.V().has('person','name','marko')
+==>v[1]
+g.V().has('person','name','marko').outE('created')
+g.V().has('person','name','marko').out('created')
+ g.V().has('person','name','marko').out('created').values('name')
+ graph = TinkerFactory.createModern()
+  g = traversal().withEmbedded(graph)
+ g.V().has('person','name',within('vadas','marko')).values('age') 
+ g.V().has('person','name',within('vadas','marko')).values('age').mean()
+ g.V().has('person','name','marko').out('created')
+ g.V().has('person','name','marko').
+           out('created').in('created').
+           values('name')
+g.V().has('person','name','marko').as('exclude').
+           out('created').in('created').
+           where(neq('exclude')).
+           values('name')
+           
+           
+   g.V().as('a').out().as('b').out().as('c').
+           select('a','b','c')         
+           
+  g.V().group().by(label)     
+   g.V().group().by(label).by('name')  
+   
+   
+     
+           
+           
+           
+       
+ 
+ 
+ 
+ 

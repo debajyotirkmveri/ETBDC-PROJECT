@@ -1,0 +1,98 @@
+"""Go to the crome and search "airroute.graphml github link " go there and copy the websit go to the terminal and write down curl -o <file name> <link>
+curl -o air-root.graphml https://raw.githubusercontent.com/krlawrence/graph/master/sample-data/air-routes.graphml""" -this is not required
+
+
+-----------------------------------------Start------------------------------------------------Anirban Dey----------Debajyoti Maity---------Airport dta query-------------------------
+Take a csv file in airport_2019.csv ---given by Champak sir----------------------------------then follow the ipynb which attach with this file then convert csv to graphml format--------------
+
+conf = new BaseConfiguration()
+conf.setProperty("gremlin.tinkergraph.vertexIdManager","LONG")
+conf.setProperty("gremlin.tinkergraph.edgeIdManager","LONG")
+conf.setProperty("gremlin.tinkergraph.vertexPropertyIdManager","LONG")
+graph = TinkerGraph.open(conf)
+graph.io(graphml()).readGraph('/home/sysadm/Downloads/Jan_2019_ontime_fivecol_final1.graphml')   
+
+
+
+:set max-iteration 1000 
+g=graph.traversal()
+g.E().count()
+g.V()
+vm = g.V().valueMap(true).toList()
+
+g.V().as('FSM').out().as('DFW').out().as('DAY').where('FSM', neq('DAY')).select('FSM', 'DFW', 'DAY').by(valueMap(true))
+
+
+  
+g.V().valueMap('ORIGIN_AIRPORT_ID', 'ORIGIN', 'DEST_AIRPORT_ID', 'DEST', 'DISTANCE').toList()    //query retrieves all vertices and their attribute values specified in the valueMap() step.  
+  
+ g.V().out().values('ORIGIN', 'DEST').dedup().toList()    //In this command, g.V().out() traverses from each vertex to its outgoing edges, and then to the connected vertices. The values('ORIGIN', 'DEST') step retrieves the values of the 'ORIGIN' and 'DEST' attributes for the connected airports. The dedup() step removes any duplicate values. Finally, toList() collects the results into a list.
+  
+  
+  
+g.V().groupCount().by('ORIGIN_AIRPORT_ID') //// How many of each type of vertex are there?
+  
+ g.V().has('ORIGIN', 'FSM').as('origin').V().has('DEST', 'DFW').addE('CONNECTED_TO').from('origin')  ####This code essentially creates a connection between two airports in a graph by adding an edge between them. The vertices representing the airports are filtered based on their origin and destination codes.
+
+ a=g.V().has('ORIGIN','IAD') 
+ 
+ 
+ a=g.V().has('DISTANCE').groupCount().by('ORIGIN')
+ 
+ 
+ a=g.V().has('ORIGIN').groupCount().by('DISTANCE')
+ 
+ g.V().has('ORIGIN','TLH').out().out().out().has('ORIGIN','EWR').path().by('ORIGIN')
+ 
+ 
+ g.V().as('a').out()
+ 
+ 
+ g.V().match(__.as('a').out().as('b'), __.as('b').out().as('c')).select('a', 'b', 'c').by('ORIGIN').toList()
+ 
+# a->b ,b->c ,a-/>c
+ 
+g.V().as('a').outE().as('ab').inV().as('b').outE().as('bc').inV().as('c').not(__.as('a').out().hasLabel('c')).select('a', 'b', 'c').by('id').count()
+
+==>342760
+
+ g.V().as('a').out().as('b').out().as('c').where(__.as('a').out().not(__.in('c').has('DEST', __.select('c').by('ORIGIN')))).where('a', neq('c')).select('a', 'b', 'c').count()
+==>337246
+//a->b;b->c;a->c 
+g.V().match(__.as('a').out().as('b'), __.as('b').out().as('c'), __.as('a').out().has('DEST', __.select('c').by('ORIGIN')).as('d')).select('a', 'b', 'c').by('ORIGIN').toList()
+
+
+
+//To query the graph for the airports that have a direct edge to a given airport, you can use the out() step with the DEST property. For example:
+
+
+g.V().has('ORIGIN','ATL').out().values('DEST')
+
+
+//To query the graph for the airports that have an indirect edge to a given airport, you can use the out().out() step with the DEST property. For example:
+g.V().has('ORIGIN','ATL').out().out().values('DEST')
+
+ //This code essentially creates a connection between two airports in a graph by adding an edge between them. The vertices representing the airports are filtered based on their origin and destination codes.
+
+g.V().has('ORIGIN', 'FSM').as('origin').V().has('DEST', 'DFW').addE('CONNECTED_TO').from('origin')
+
+
+g.V().groupCount().by('ORIGIN_AIRPORT_ID') //// How many of each type of vertex are there?
+
+
+
+ //In this command, g.V().out() traverses from each vertex to its outgoing edges, and then to the connected vertices. The values('ORIGIN', 'DEST') step retrieves the values of the 'ORIGIN' and 'DEST' attributes for the connected airports. The dedup() step removes any duplicate values. Finally, toList() collects the results into a list.
+ 
+ 
+g.V().out().values('ORIGIN', 'DEST').dedup().toList()
+
+
+
+//the query is looking for paths in the graph that represent a route from an airport labeled 'FSM' to an airport labeled 'DAY' via an intermediate airport labeled 'DFW'. It ensures that the 'FSM' and 'DAY' airports are different and retrieves the properties of these airports in the form of value maps.
+
+g.V().as('FSM').out().as('DFW').out().as('DAY').where('FSM', neq('DAY')).select('FSM', 'DFW', 'DAY').by(valueMap(true))
+
+
+
+GraphMLReader.build().create().readGraph(new FileInputStream("/home/sysadm/Downloads/Jan_2019_ontime_fivecol_final1.graphml"), graph)
+

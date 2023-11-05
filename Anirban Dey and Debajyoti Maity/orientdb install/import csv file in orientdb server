@@ -1,0 +1,56 @@
+(base) sysadm@arya13:~/orientdb/bin$ ls
+backup.sh    dserver.sh   orientdb.service  server.bat	  stresstester.bat
+console.bat  gremlin.bat  orientdb.sh	    server.sh	  stresstester.sh
+console.sh   oetl.bat	  orientdb.upstart  shutdown.bat
+dserver.bat  oetl.sh	  orient.pid	    shutdown.sh
+(base) sysadm@arya13:~/orientdb/bin$ ./console.sh 
+
+OrientDB console v.3.2.21-SNAPSHOT (build ${buildNumber}, branch develop) https://www.orientdb.com
+Type 'help' to display all the supported commands.
+Installing extensions for GREMLIN language v.2.6.0
+
+orientdb> connect remote:localhost root system
+OK
+orientdb {server=remote:localhost}> open air-route root system                  OK                                            
+orientdb {db=air-route}> list databases;                                                                           
+Found 2 databases:
+
+* air-route 
+* demodb 
+
+orientdb {db=air-route}> import database /home/sysadm/Downloads/Jan_2019_ontime.csv -merge=False;                  
+
+Importing database database /home/sysadm/Downloads/Jan_2019_ontime.csv -merge=False...
+Started import of database 'plocal:/home/sysadm/orientdb/databases/air-route' from /tmp/import8288928399831955723Jan_2019_ontime.csv...
+Non merge mode (-merge=false): removing all default non security classes
+- Class _studio was removed.
+- Class OSecurityPolicy was removed.
+Removed 2 classes.
+Rebuild of stale indexes...
+Start rebuild index ORole.name
+Rebuild  of index ORole.name is completed.
+Start rebuild index OUser.name
+Rebuild  of index OUser.name is completed.
+Stale indexes were rebuilt...
+Deleting RID Mapping table...OK
+
+
+Database import completed in 6634 ms
+orientdb {db=air-route}> list classes;
+
+
+CLASSES
++----+---------------+-------------+------------------+-----+
+|#   |NAME           |SUPER-CLASSES|CLUSTERS          |COUNT|
++----+---------------+-------------+------------------+-----+
+|0   |OIdentity      |             |-                 |    0|
+|1   |ORole          |[OIdentity]  |orole(5)          |    3|
+|2   |OSecurityPolicy|             |osecuritypolicy(4)|    4|
+|3   |OUser          |[OIdentity]  |ouser(6)          |    1|
++----+---------------+-------------+------------------+-----+
+|    |TOTAL          |             |                  |    8|
++----+---------------+-------------+------------------+-----+
+
+orientdb {db=air-route}> 
+
+

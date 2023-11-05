@@ -1,0 +1,61 @@
+sudo apt update
+sudo apt install git
+sudo apt install curl
+sudo apt-get update
+git --version
+git clone https://github.com/orientechnologies/orientdb.git
+ls
+whereis orientdb
+mv orientdb orientdb_install   ###rename for understanding
+sudo apt install maven 
+cd orientdb
+mvn clean install -DskipTests
+ls
+cd distribution-tp2/
+ls
+cd target
+ls
+cp orientdb -community-tp2-3.2.20-SnapShot.targz /home/sysadm
+cd ~
+ls
+tar -xvf orientdb-community-tp2-3.2.20 SnapShot.tar.gz
+ls
+rm -rf orientdb-community-tp2-3.2.20 SnapShot.tar.gz
+mv orientdb-community-tp2-3.2.20 SnapShot / orientdb  ###rename for further work
+ls
+cd orientdb
+ls
+cd bin
+ls
+./server.sh
+"""here passward be want...here one link be shown..this link be copied and go to the browser ..and paste this link """
+"""here one studio be open such as like neo4j -desktop"""
+"""user is 'root' and password is 'system'"""
+orientdb/bin/cd ..
+#orientdb 
+ls
+cd ..
+cd config
+ls
+"""here many xml file be shown"""
+nano orientdb-server -config.xml
+<storage name = "databases" path = "/home/sysadm/orientdb/databases/>
+<username = "root" password = "system" resources'*' />
+"""then control presss then  o then enter then control press then x""" ##save the configaration file
+"""make a new tab """
+cd ..
+#orientdb
+cd bin
+ls
+./console.sh
+connect remote:localhost/demodb root system   ##connect remote:localhost root system
+gremlin g.v();
+list classes
+exit()
+"""create a new tab"""
+cd ~
+create database plocal:/home/sysadm/orientdb/databases/air-route root system;
+import database /home/sysadm/Downloads/Jan_2019_ontime.csv -merge=False;
+create database plocal:/home/sysadm/orientdb/databases/air-route root system;
+import database /home/sysadm/Downloads/Jan_2019_ontime.csv -merge=False; 
+
